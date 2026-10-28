@@ -2,7 +2,7 @@
 
 把压缩包里的 `shinnwa-product-upload` 整个文件夹放进 Codex 使用的 skills 目录。默认位置是用户目录下的 `.codex\skills`；自定义过 `CODEX_HOME` 时使用该目录下的 `skills`。最终结构应为 `skills\shinnwa-product-upload\SKILL.md`，避免多套一层同名文件夹。
 
-技能文件已经包含主流程和参考规则，不需要 Python 或 Linux 环境。需要电脑已配置并认证 Shinnwa 的 `medusa_catalog` MCP，以及能使用 `officecli` 处理 Excel。技能不附带店铺密钥，也不会自动配置账号；请让店铺管理员在该电脑上完成 MCP 连接。不要在聊天或表格里贴密钥。
+技能文件已经包含主流程和参考规则，不要求固定的脚本运行时或 Linux 环境。需要电脑已配置并认证 Shinnwa 的 `medusa_catalog` MCP，并具备可靠的 Excel 读写能力。**不必专门安装 OfficeCLI**：Codex 会先检查电脑已有的表格工具；没有 OfficeCLI 时使用其他可用方式。若确实没有工具能够可靠读取和回填，Codex 才会说明需要补充的能力。技能不附带店铺密钥，也不会自动配置账号；请让店铺管理员在该电脑上完成 MCP 连接。不要在聊天或表格里贴密钥。
 
 安装后重新打开 Codex 会话，确认能找到“Shinnwa 商品上传”。在 Codex 中输入下面的话，附上真实文件夹位置即可：
 
