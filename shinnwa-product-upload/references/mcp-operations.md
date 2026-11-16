@@ -13,7 +13,7 @@
 | `list_products` | 查重、确认规格 ID、最终读回和获取链接；只读 |
 | `list_catalog_options` | 获取真实可用 ID，不把分类名称直接当 ID |
 | `upload_product_image_data` | `file_name` 与 Base64 `data`／data URL；确认后才调用，保存返回图片 URL |
-| `create_product_draft` | 传确认后的最终字段；`variants` 含确认的原有／生成 SKU、各自价格、Color／Size 选项和原生 `upc` |
+| `create_product_draft` | 传确认后的最终字段；同一父商品的多个规格（如 1 款 8 个 SKU）必须合并在同一次创建的 `options` 与 `variants` 数组中，含各自原有／生成 SKU、各自价格、Color／Size 选项和原生 `upc` |
 | `create_product_drafts_batch` | 最多 100 件商品一批，逐商品核对返回结果；不能假定事务回滚或全成功 |
 | `update_variant_gtin` | 参数 `product_id`、`variant_id`、字符串 `gtin`、明确的 `field`；`null` 清空，仅获明确批准时用 |
 | `publish_product` | 只发布已读回核对且清单中获批上架的草稿 |
@@ -30,7 +30,7 @@
 3. 图片完成后组装草稿参数，逐 SKU 对照确认清单。商品 options 与各 variant 的选项组合必须一致；价格单位须已核实。UPC 保持字符串并提交到每个规格的 `upc`，不是只写入 metadata；`Product ID Type` 明确为 UPC，原表其他必填资料也须已完整确认。保存本次尝试与商品键后再调用创建接口，不给接口添加未声明的幂等参数。
 4. 收到结果立即记录商品和规格 ID。重新查询核对实际标题、SKU／选项、价格（查询不返回时使用可用的可靠读回方式，无法读回要明确）、GTIN、图库和状态等关键字段；任何关键不一致停止该商品的发布。若无法完成必要读回核对，保持草稿并报告“待核对”，不能把假设当审核完成。
 5. 只有预览已明确批准上架，且草稿核对通过才调用发布。此时无需重复索要同一发布许可；若新发现问题或改变资料则重新确认。发布后查明状态，不以“发出了调用”算成功。
-6. 获取服务端 `product_url`，缺少时用已保存 ID／SKU 缩小查询并精确核对身份再取。不得根据其他商品的链接规则拼接。保存最终结果并按表格规则回填。
+6. 获取服务端 `product_url` 与每个规格的 `variant_id`，缺少时用已保存 ID／SKU 缩小查询并精确核对身份再取。不得根据其他商品的链接规则自己拼域名和 handle。若服务端已返回规格级 URL 则直接使用；否则基于已核实的服务端 `product_url` 与各规格真实的 `variant_id`，按店铺前端规格参数规则生成直达链接（如 `<product_url>?variant=<variant_id>`，若 `product_url` 已含 `?` 则用 `&variant=<variant_id>`），使同一父商品下的每个 SKU 都有各自独立可直达该规格的 URL。保存最终结果并按表格规则回填。
 
 ### Windows 图片传参
 
