@@ -1,7 +1,7 @@
 interface:
-  display_name: "Shinnwa 商品上传"
+  display_name: "Shinnwa / baibu 商品上传"
   short_description: "核对商品表格必填资料、图片与 UPC，SKU 可生成，确认后上传并将链接写回原表"
-  default_prompt: "请使用 $shinnwa-product-upload 检查这个文件夹中的商品表格和图片，先列出缺失与疑问，等我确认后上传，并将商品链接写回表格。"
+  default_prompt: "请使用 $shinnwa-product-upload 先问我要上传到 Shinnwa 还是 baibu，再检查商品表格和图片，等我确认后上传，并将商品链接写回表格。"
 dependencies:
   tools:
     - type: "mcp"
@@ -9,5 +9,10 @@ dependencies:
       description: "已配置认证的 Shinnwa 商品管理 MCP；技能不包含访问密钥"
       transport: "streamable_http"
       url: "https://shinnwaapi.chaoxian.online/catalog-mcp"
+    - type: "mcp"
+      value: "baibu_catalog"
+      description: "baibu 商品管理 MCP，使用独立的 baibu 后台 API 密钥"
+      transport: "streamable_http"
+      url: "https://shop.baibuhome.com/catalog-mcp"
 policy:
   allow_implicit_invocation: true
