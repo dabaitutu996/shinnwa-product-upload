@@ -6,13 +6,8 @@ dependencies:
   tools:
     - type: "mcp"
       value: "medusa_catalog"
-      description: "已配置认证的 Shinnwa 商品管理 MCP；技能不包含访问密钥"
+      description: "已配置认证的共用商品上传连接，支持 Shinnwa 和 baibu"
       transport: "streamable_http"
       url: "https://shinnwaapi.chaoxian.online/catalog-mcp"
-    - type: "mcp"
-      value: "baibu_catalog"
-      description: "baibu 商品管理 MCP，使用独立的 baibu 后台 API 密钥"
-      transport: "streamable_http"
-      url: "https://shop.baibuhome.com/catalog-mcp"
 policy:
   allow_implicit_invocation: true

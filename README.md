@@ -20,8 +20,7 @@ SKU 可不填：技能会生成、查重并展示确认；已有 SKU 默认保�
 
 ## 工具依赖
 
-- **Shinnwa MCP：**已配置认证的 `medusa_catalog`，地址为 `https://shinnwaapi.chaoxian.online/catalog-mcp`。使用它查询商品和店铺选项、上传图片、创建草稿、修改 UPC、发布商品及读取商品链接。以运行时暴露的工具定义为准。
-- **baibu MCP：**独立连接 `baibu_catalog`，地址为 `https://shop.baibuhome.com/catalog-mcp`。使用 baibu 后台的 Secret API Key，安装方式见 [Windows 安装和使用说明](Windows-安装和使用说明.md#连接目标店铺)。
+- **共用商品上传连接：**沿用已认证的 `medusa_catalog`，地址为 `https://shinnwaapi.chaoxian.online/catalog-mcp`。Shinnwa 用原有工具，baibu 用同一连接下的 `baibu_*` 工具。已连接的同事刷新工具列表即可，原令牌继续使用。
 - **Excel 读写能力：**使用电脑已有的可靠表格工具读取、备份后回填和检查工作簿。OfficeCLI 是可选工具，没有安装时可使用其他可用工具；无需专门安装 OfficeCLI。Windows 操作使用 PowerShell。
 
 本仓库不包含店铺密钥、实际商品资料或上传运行记录。安装技能不自动完成 MCP 认证配置。

@@ -2,7 +2,7 @@
 
 把压缩包里的 `shinnwa-product-upload` 整个文件夹放进 Codex 使用的 skills 目录。默认位置是用户目录下的 `.codex\skills`；自定义过 `CODEX_HOME` 时使用该目录下的 `skills`。最终结构应为 `skills\shinnwa-product-upload\SKILL.md`，避免多套一层同名文件夹。
 
-技能文件已经包含主流程和参考规则，不要求固定的脚本运行时或 Linux 环境。需要电脑已配置并认证目标店铺的商品管理连接，并具备可靠的 Excel 读写能力。**不必专门安装 OfficeCLI**：Codex 会先检查电脑已有的表格工具；没有 OfficeCLI 时使用其他可用方式。若确实没有工具能够可靠读取和回填，Codex 才会说明需要补充的能力。技能不附带店铺密钥，也不会自动配置账号；请让店铺管理员在该电脑上完成 MCP 连接。不要在聊天或表格里贴密钥。
+技能文件已经包含主流程和参考规则，不要求固定的脚本运行时或 Linux 环境。需要电脑已配置并认证现有商品管理连接 `medusa_catalog`，并具备可靠的 Excel 读写能力。**不必专门安装 OfficeCLI**：Codex 会先检查电脑已有的表格工具；没有 OfficeCLI 时使用其他可用方式。若确实没有工具能够可靠读取和回填，Codex 才会说明需要补充的能力。技能不附带店铺密钥，也不会自动配置账号；请让店铺管理员在该电脑上完成 MCP 连接。不要在聊天或表格里贴密钥。
 
 安装后重新打开 Codex 会话，确认能找到“Shinnwa / baibu 商品上传”。在 Codex 中输入下面的话，附上真实文件夹位置即可：
 
@@ -24,14 +24,6 @@ Codex 会先盘点、核对并列出问题，修改好后展示上传确认单�
 
 ## 连接目标店铺
 
-- Shinnwa 沿用已配置的 `medusa_catalog`（https://shinnwaapi.chaoxian.online/catalog-mcp）。
-- baibu 单独配置为 `baibu_catalog`（https://shop.baibuhome.com/catalog-mcp）。在 [baibu 后台](https://shop.baibuhome.com/app) 的 **Settings → Secret API Keys** 创建独立密钥。将其保存到 Codex 可访问的本机安全配置。通过 Windows 的「编辑账户的环境变量」配置时，变量名使用 `BAIBU_CATALOG_API_KEY`。密钥有后台管理权限，限授权人员使用。
+两家店共用已配置的 `medusa_catalog`，地址为 `https://shinnwaapi.chaoxian.online/catalog-mcp`。已经连过 Shinnwa 的同事，重新打开 Codex 或刷新工具列表即可；原连接和令牌继续使用。baibu 后台密钥保存在中转服务上。
 
-配置环境变量后重新打开 PowerShell，运行：
-
-```powershell
-codex mcp add baibu_catalog --url https://shop.baibuhome.com/catalog-mcp --bearer-token-env-var BAIBU_CATALOG_API_KEY
-codex mcp list
-```
-
-重新启动 Codex，并让技能先核对 baibu 站点身份和商品列表。连接配置只需要做一次。安装与使用参考 [Medusa 后台密钥文档](https://docs.medusajs.com/user-guide/settings/developer/secret-api-keys)。
+打开新会话后，可以说「查一下 baibu 有多少件商品」来验证连接。Shinnwa 和 baibu 的商品分别查询。首次使用这条连接的同事，请向管理员获取原有上传连接的配置方式。

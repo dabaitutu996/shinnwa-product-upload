@@ -2,12 +2,16 @@
 
 ## 只读准备
 
-| 用户选定的站点 | 客户端连接名 | 商品管理入口 |
-| --- | --- | --- |
-| Shinnwa | `medusa_catalog` | https://shinnwaapi.chaoxian.online/catalog-mcp |
-| baibu | `baibu_catalog` | https://shop.baibuhome.com/catalog-mcp |
+两家店共用已认证的 `medusa_catalog`（`https://shinnwaapi.chaoxian.online/catalog-mcp`）。核对完整地址与当前工具列表。客户端可能为已连接工具加上统一前缀，以实际工具定义为准。
 
-按客户端实际配置核对连接名和完整地址，工具前缀可随客户端变化。同事的电脑必须分别配置各站授权凭据，见仓库《Windows 安装和使用说明》的「连接目标店铺」。baibu 先调用 `get_storefront`，核对 `store=baibu` 和 `storefront_url=https://shop.baibuhome.com/us/`。Shinnwa 沿用原连接，用所配置的入口和该连接返回的商品资料核对身份。若选中连接缺失或地址／身份不符，只做本地资料检查。全程使用选中连接；不要跨店复用上传 URL、分类 ID、渠道 ID、商品 ID、规格 ID 或历史结果。
+| 用户选定的站点 | 工具选法 |
+| --- | --- |
+| Shinnwa | 沿用原有工具，例如 `list_products`、`create_product_draft` |
+| baibu | 只使用同一连接中以 `baibu_` 开头的工具，例如 `baibu_list_products`、`baibu_create_product_draft` |
+
+baibu 先调用 `baibu_get_storefront` 核对 `store=baibu` 和 `storefront_url=https://shop.baibuhome.com/us/`。如果工具列表没有 `baibu_` 工具，先刷新工具列表或重新打开会话；期间可继续本地检查。两家店的图片 URL、分类 ID、渠道 ID、商品 ID、规格 ID 和历史结果分别使用。
+
+下文用原有接口名描述共用流程。选择 baibu 时，实际调用对应的 `baibu_` 工具，例如 `list_catalog_options` 对应 `baibu_list_catalog_options`，`get_product` 对应 `baibu_get_product`。
 
 先读取实际工具说明，再读 `list_catalog_options` 识别分类等可选项。通过 `list_products` 以 SKU、商品名等相关线索查询并人工核对返回规格的 ID、SKU、各 GTIN 字段、handle、状态和 `product_url`。不要假定 `query` 一定精确匹配 SKU／GTIN。
 
